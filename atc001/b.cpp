@@ -20,16 +20,44 @@ template <class T> inline bool chmin(T &a, T b) {
   return 0;
 }
 
-int main() {
-  string s, t;
-  cin >> s >> t;
-  ll n;
-  cin >> n;
-  vector<ll> a(n, 0);
-  rep1(i, n) cin >> a[i];
-  ll ans = 0;
-  cout << ans << endl;
-  // printf("%.12f", ans);
+ll par[100001];
+
+void init(ll n) { rep1(i, n + 1) par[i] = 0; }
+
+ll root(ll x) {
+  if (par[x] == x) {
+    return x;
+  } else {
+    return par[x] = root(par[x]);
+  }
 }
 
+bool same(ll x, ll y) { return root(x) == root(y); }
 
+void unite(ll x, ll y) {
+  x = root(x);
+  y = root(y);
+  if (x == y)
+    return;
+  par[x] = y;
+}
+
+int main() {
+  ll n, q, p, a, b;
+  cin >> n >> q;
+  init(q);
+  rep1(i, q) {
+    cin >> p >> a >> b;
+    cout << "query " << i << endl;
+    if (p == 0) {
+      unite(a, b);
+    } else {
+      bool ans = same(a, b);
+      if (ans) {
+        cout << "Yes" << endl;
+      } else {
+        cout << "No" << endl;
+      }
+    }
+  }
+}

@@ -21,24 +21,11 @@ template <class T> inline bool chmin(T &a, T b) {
 }
 
 int main() {
-  ll n, a, b;
-  ll aoki = 0, taka = 0;
-  cin >> n;
-  vector<vector<ll>> c(n);
-  rep1(i, n) {
-    cin >> a >> b;
-    aoki += a;
-    c[i] = {a * 2 + b, a + b, a};
-  }
-  sort(c.rbegin(), c.rend());
+  ll n, C;
+  cin >> n >> C;
+  vector<ll> a(n), b(n), c(n);
+  rep1(i, n) cin >> a[i] >> b[i] >> c[i];
   ll ans = 0;
-  for (auto &p : c) {
-    aoki -= p[2];
-    taka += p[1];
-    ans++;
-    if (aoki < taka)
-      break;
-  }
   cout << ans << endl;
   // printf("%.12f", ans);
 }

@@ -20,38 +20,46 @@ template <class T> inline bool chmin(T &a, T b) {
   return 0;
 }
 
+void search(ll x, ll y, ll w, ll h, vector<string> &c,
+            vector<vector<bool>> &visited) {
+  if (x < 0 || h <= x || y < 0 || w <= y) {
+    return;
+  } else if (c[x][y] == '#') {
+    return;
+  }
+  if (visited[x][y])
+    return;
+  visited[x][y] = true;
+  search(x + 1, y, w, h, c, visited);
+  search(x - 1, y, w, h, c, visited);
+  search(x, y + 1, w, h, c, visited);
+  search(x, y - 1, w, h, c, visited);
+}
+
 int main() {
   ll h, w;
   cin >> h >> w;
   vector<string> c(h);
   rep1(i, h) cin >> c[i];
-  vector<vector<bool>> visited(1000, vector<ll>(1000, false));
+  vector<vector<bool>> visited(600, vector<bool>(600, false));
 
-  void search(ll x, ll y) {
-    if (x < 0 || w <= x || y < 0 || h <= y || c[x][y] == '#')
-      return;
-    if (visited[x][y])
-      return;
-    search(x + 1, y);
-    search(x - 1, y);
-    search(x, y + 1);
-    search(x, y - 1);
-  }
-  ll sx, sy, gx, gy;
+  ll si = 0, sj = 0, gi = 0, gj = 0;
   rep1(i, h) {
     rep1(j, w) {
       if (c[i][j] == 's') {
-        sx = j;
-        sy = i;
+        si = i;
+        sj = j;
       }
       if (c[i][j] == 'g') {
-        gx = j;
-        gy = i;
+        gi = i;
+        gj = j;
       }
     }
   }
-  search(sx, sy);
-  if (visited[gx][gy])
-    cout << ans << endl;
+  search(si, sj, w, h, c, visited);
+  if (visited[gi][gj])
+    cout << "Yes" << endl;
+  else
+    cout << "No" << endl;
   // printf("%.12f", ans);
 }

@@ -101,9 +101,9 @@ def output():
         subprocess.run(
             ["echo", cpptmp], stdout=open(cdir + "/" + problem[i] + ".cpp", "wb")
         )
-        subprocess.run(
-            ["echo", pytmp], stdout=open(cdir + "/" + problem[i] + ".py", "wb")
-        )
+        # subprocess.run(
+        #     ["echo", pytmp], stdout=open(cdir + "/" + problem[i] + ".py", "wb")
+        # )
     subprocess.run(["cd", contest])
     return
 
